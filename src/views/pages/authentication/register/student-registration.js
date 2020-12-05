@@ -10,6 +10,12 @@ import { toast, ToastContainer, Zoom } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import "../../../../assets/scss/plugins/extensions/toastr.scss"
 import Flatpickr from "react-flatpickr";
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
 
 class StudentRegister extends React.Component {
   regSuccess = () => {toast.success("Registration Successfully.", { transition: Zoom })}
@@ -37,9 +43,10 @@ class StudentRegister extends React.Component {
       phone: "",
       reg_no: "",
       user_role: "Student",
-      academic_from: "",
-      academic_to: "",
+      academic_from: new Date,
+      academic_to: new Date,
       company: null,
+      designation: null,
       address: null,
       approved: false,
       userlist: [],
@@ -203,15 +210,31 @@ class StudentRegister extends React.Component {
             />
             <Label>University Reg No<span style={{ color: "red" }}>*</span></Label>
           </FormGroup>
-          <FormGroup className="form-label-group">
-              <Flatpickr
+          <FormGroup>
+          <Label>Year of Admission</Label>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <KeyboardDatePicker
+                margin="normal"
+                className="form-control"
+                views={["year"]}
+                id="academic_from"
+                format="yyyy"
+                value={this.state.academic_from}
+                style={{marginTop: '0px', paddingTop:'6px', borderBottom: '0px'}}
+                onChange={(date)=> this.setState({ academic_from : date })}
+                KeyboardButtonProps={{
+                    'aria-label': 'change date',
+                }}
+            />
+            </MuiPickersUtilsProvider>
+              {/* <Flatpickr
                 className="form-control"
                 placeholder="Date of Admission"
                 value={this.state.academic_from}
                 options={{ dateFormat: "d-m-Y", }}
                 onChange={(date)=> this.formatDate(date)}
-              />
-            <Label>Date of Admission</Label>
+              /> */}
+            
           </FormGroup>
           {/* <FormGroup className="form-label-group">
               <Flatpickr

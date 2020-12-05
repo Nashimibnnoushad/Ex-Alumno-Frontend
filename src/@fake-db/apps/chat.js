@@ -5,17 +5,17 @@ let data = {
   contacts: [
     {
       uid: 1,
-      displayName: "Felecia Rower",
+      displayName: "Peter",
       about:
-        "Cake pie jelly jelly beans. Marzipan lemon drops halvah cake. Pudding cookie lemon drops icing",
+        "Chat Only",
       photoURL: require("../../assets/img/portrait/small/avatar-s-1.jpg"),
       status: "offline"
     },
     {
       uid: 2,
-      displayName: "Adalberto Granzin",
+      displayName: "Aleena",
       about:
-        "Toffee caramels jelly-o tart gummi bears cake I love ice cream lollipop. Sweet liquorice croissant candy danish dessert icing. Cake macaroon gingerbread toffee sweet.",
+        "Available",
       photoURL: require("../../assets/img/portrait/small/avatar-s-2.jpg"),
       status: "do not disturb"
     },
@@ -23,7 +23,7 @@ let data = {
       uid: 3,
       displayName: "Joaquina Weisenborn",
       about:
-        "Soufflé soufflé caramels sweet roll. Jelly lollipop sesame snaps bear claw jelly beans sugar plum sugar plum.",
+        "Battery about to die",
       photoURL: require("../../assets/img/portrait/small/avatar-s-3.jpg"),
       status: "do not disturb"
     },
@@ -31,7 +31,7 @@ let data = {
       uid: 4,
       displayName: "Verla Morgano",
       about:
-        "Chupa chups candy canes chocolate bar marshmallow liquorice muffin. Lemon drops oat cake tart liquorice tart cookie. Jelly-o cookie tootsie roll halvah.",
+        "Cant talk, chat only",
       photoURL: require("../../assets/img/portrait/small/avatar-s-4.jpg"),
       status: "online"
     },
@@ -39,7 +39,7 @@ let data = {
       uid: 5,
       displayName: "Margot Henschke",
       about:
-        "Cake pie jelly jelly beans. Marzipan lemon drops halvah cake. Pudding cookie lemon drops icing",
+        "In a meeting",
       photoURL: require("../../assets/img/portrait/small/avatar-s-5.jpg"),
       status: "do not disturb"
     },
@@ -47,7 +47,7 @@ let data = {
       uid: 6,
       displayName: "Sal Piggee",
       about:
-        "Toffee caramels jelly-o tart gummi bears cake I love ice cream lollipop. Sweet liquorice croissant candy danish dessert icing. Cake macaroon gingerbread toffee sweet.",
+        "Urgent calls only",
       photoURL: require("../../assets/img/portrait/small/avatar-s-6.jpg"),
       status: "online"
     },
@@ -55,7 +55,7 @@ let data = {
       uid: 7,
       displayName: "Miguel Guelff",
       about:
-        "Biscuit powder oat cake donut brownie ice cream I love soufflé. I love tootsie roll I love powder tootsie roll.",
+        "Cant talk, chat only",
       photoURL: require("../../assets/img/portrait/small/avatar-s-7.jpg"),
       status: "online"
     },
@@ -63,7 +63,7 @@ let data = {
       uid: 8,
       displayName: "Mauro Elenbaas",
       about:
-        "Bear claw ice cream lollipop gingerbread carrot cake. Brownie gummi bears chocolate muffin croissant jelly I love marzipan wafer.",
+        "Urgent calls only",
       photoURL: require("../../assets/img/portrait/small/avatar-s-8.jpg"),
       status: "away"
     },
@@ -71,7 +71,7 @@ let data = {
       uid: 9,
       displayName: "Bridgett Omohundro",
       about:
-        "Gummies gummi bears I love candy icing apple pie I love marzipan bear claw. I love tart biscuit I love candy canes pudding chupa chups liquorice croissant.",
+        "Work from Home",
       photoURL: require("../../assets/img/portrait/small/avatar-s-9.jpg"),
       status: "offline"
     },
@@ -79,7 +79,7 @@ let data = {
       uid: 10,
       displayName: "Zenia Jacobs",
       about:
-        "Cake pie jelly jelly beans. Marzipan lemon drops halvah cake. Pudding cookie lemon drops icing",
+        "At Gym",
       photoURL: require("../../assets/img/portrait/small/avatar-s-10.jpg"),
       status: "away"
     }
@@ -89,112 +89,112 @@ let data = {
       isPinned: true,
       msg: [
         {
-          textContent: "How can we help? We're here for you!",
+          textContent: "Hi, Good Morning",
           time: "Mon Aug 21 2020 07:45:00 GMT+0000 (GMT)",
           isSent: true,
           isSeen: true
         },
         {
           textContent:
-            "Hey John, I am looking for the best admin template. Could you please help me to find it out?",
+            "Good Morning",
           time: "Mon Aug 21 2020 07:45:23 GMT+0000 (GMT)",
           isSent: false,
           isSeen: true
         },
         {
-          textContent: "It should be Bootstrap 4 compatible.",
+          textContent: "How are you?",
           time: "Mon Aug 21 2020 07:45:55 GMT+0000 (GMT)",
           isSent: false,
           isSeen: true
         },
         {
-          textContent: "Absolutely!",
+          textContent: "I am fine, Thank you",
           time: "Mon Aug 21 2020 07:46:00 GMT+0000 (GMT)",
           isSent: true,
           isSeen: true
         },
         {
           textContent:
-            "Modern admin is the responsive bootstrap 4 admin template.!",
+            "How was your studies?",
           time: "Mon Aug 21 2020 07:46:05 GMT+0000 (GMT)",
           isSent: true,
           isSeen: true
         },
         {
-          textContent: "Looks clean and fresh UI.",
+          textContent: "Going well.. and what about your job?",
           time: "Mon Aug 21 2020 07:46:23 GMT+0000 (GMT)",
           isSent: false,
           isSeen: true
         },
         {
-          textContent: "It's perfect for my next project.",
+          textContent: "Yeah, its good, currently i am working as a software developer",
           time: "Mon Aug 21 2020 07:46:33 GMT+0000 (GMT)",
-          isSent: false,
+          isSent: true,
           isSeen: true
         },
         {
-          textContent: "How can I purchase it?",
+          textContent: "Great... Did you attend our last alumni?",
           time: "Mon Aug 21 2020 07:46:43 GMT+0000 (GMT)",
           isSent: false,
           isSeen: true
         },
         {
-          textContent: "Thanks, from ThemeForest.",
+          textContent: "No.. I missed it, definitly come next 👍",
           time: "Mon Aug 21 2020 07:46:53 GMT+0000 (GMT)",
           isSent: true,
           isSeen: true
         },
         {
-          textContent: "I will purchase it for sure 👍.",
+          textContent: "Great, See you soon 👍.",
           time: "Mon Aug 21 2020 07:47:00 GMT+0000 (GMT)",
           isSent: false,
           isSeen: false
         }
       ]
     },
-    2: {
-      isPinned: false,
-      msg: [
-        {
-          textContent: "Hi",
-          time: "Mon Aug 21 2020 07:45:00 GMT+0000 (GMT)",
-          isSent: true,
-          isSeen: true
-        },
-        {
-          textContent: "Hello. How can I help You?",
-          time: "Mon Aug 22 2020 07:45:15 GMT+0000 (GMT)",
-          isSent: false,
-          isSeen: true
-        },
-        {
-          textContent:
-            "Can I get details of my last transaction I made last month?",
-          time: "Mon Aug 22 2020 07:46:10 GMT+0000 (GMT)",
-          isSent: true,
-          isSeen: true
-        },
-        {
-          textContent:
-            "We need to check if we can provide you such information.",
-          time: "Mon Aug 22 2020 07:45:15 GMT+0000 (GMT)",
-          isSent: false,
-          isSeen: true
-        },
-        {
-          textContent: "I will inform you as I get update on this.",
-          time: "Mon Aug 22 2020 07:46:15 GMT+0000 (GMT)",
-          isSent: false,
-          isSeen: true
-        },
-        {
-          textContent: "If it takes long you can mail me at my mail address",
-          time: "Mon Aug 22 2020 07:46:20 GMT+0000 (GMT)",
-          isSent: true,
-          isSeen: false
-        }
-      ]
-    }
+    // 2: {
+    //   isPinned: false,
+    //   msg: [
+    //     {
+    //       textContent: "Hi",
+    //       time: "Mon Aug 21 2020 07:45:00 GMT+0000 (GMT)",
+    //       isSent: true,
+    //       isSeen: true
+    //     },
+    //     {
+    //       textContent: "Hello. How can I help You?",
+    //       time: "Mon Aug 22 2020 07:45:15 GMT+0000 (GMT)",
+    //       isSent: false,
+    //       isSeen: true
+    //     },
+    //     {
+    //       textContent:
+    //         "Can I get details of my last transaction I made last month?",
+    //       time: "Mon Aug 22 2020 07:46:10 GMT+0000 (GMT)",
+    //       isSent: true,
+    //       isSeen: true
+    //     },
+    //     {
+    //       textContent:
+    //         "We need to check if we can provide you such information.",
+    //       time: "Mon Aug 22 2020 07:45:15 GMT+0000 (GMT)",
+    //       isSent: false,
+    //       isSeen: true
+    //     },
+    //     {
+    //       textContent: "I will inform you as I get update on this.",
+    //       time: "Mon Aug 22 2020 07:46:15 GMT+0000 (GMT)",
+    //       isSent: false,
+    //       isSeen: true
+    //     },
+    //     {
+    //       textContent: "If it takes long you can mail me at my mail address",
+    //       time: "Mon Aug 22 2020 07:46:20 GMT+0000 (GMT)",
+    //       isSent: true,
+    //       isSeen: false
+    //     }
+    //   ]
+    // }
   }
 }
 

@@ -5,7 +5,7 @@ import { MessageSquare, Menu, Star, Send } from "react-feather"
 import PerfectScrollbar from "react-perfect-scrollbar"
 import { connect } from "react-redux"
 import { togglePinned, sendMessage } from "../../../redux/actions/chat/index"
-import userImg from "../../../assets/img/portrait/small/avatar-s-11.jpg"
+import userImg from "../../../assets/img/portrait/small/account.png"
 
 class ChatLog extends React.Component {
   static getDerivedStateFromProps(props, state) {
@@ -24,7 +24,8 @@ class ChatLog extends React.Component {
   state = {
     msg: "",
     activeUser: null,
-    activeChat: null
+    activeChat: null,
+    image: ''
   }
 
   handleSendMessage = (id, isPinned, text) => {
@@ -36,6 +37,18 @@ class ChatLog extends React.Component {
     }
   }
   componentDidMount() {
+    var user_images = []
+    user_images = JSON.parse(localStorage.getItem("Alumno-User-Images"))
+    var user = JSON.parse(localStorage.getItem("alumniuser"))
+    if (user) {
+      if ( user_images !== null && user_images.length !== 0) {
+        for (let i = 0; i < user_images.length; i++) {
+          if (user_images[i].user_id === user.id) {
+            this.setState({ image: user_images[i].image_url })
+          }
+        }
+      }
+    }
     this.scrollToBottom()
   }
   componentDidUpdate() {
@@ -68,64 +81,59 @@ class ChatLog extends React.Component {
     let renderChats =
       activeChat && activeChat !== undefined && activeChat.msg
         ? activeChat.msg.map((chat, i) => {
-            let renderSentTime = () => {
+          let renderSentTime = () => {
+            if (
+              i > 0 &&
+              !this.handleTime(chat.time, activeChat.msg[i - 1].time)
+            ) {
+              return (
+                <div className="divider">
+                  <div className="divider-text">
+                    {new Date().getDate() +
+                      " " +
+                      new Date().toLocaleString("default", {
+                        month: "short"
+                      })}
+                  </div>
+                </div>
+              )
+            }
+          }
+          let renderAvatar = () => {
+            if (i > 0) {
               if (
-                i > 0 &&
-                !this.handleTime(chat.time, activeChat.msg[i - 1].time)
+                chat.isSent === true &&
+                activeChat.msg[i - 1].isSent !== true
               ) {
                 return (
-                  <div className="divider">
-                    <div className="divider-text">
-                      {new Date().getDate() +
-                        " " +
-                        new Date().toLocaleString("default", {
-                          month: "short"
-                        })}
+                  <div className="chat-avatar">
+                    <div className="avatar m-0">
+                      {this.state.image ?
+                        <img
+                          src={`data:image/png;base64,${this.state.image}`}
+                          className="round"
+                          height="40"
+                          width="40"
+                          alt="avatar"
+                        />
+                        :
+                        <img
+                          src={userImg}
+                          className="round"
+                          height="40"
+                          width="40"
+                          alt="avatar"
+                        />
+                      }
                     </div>
                   </div>
                 )
-              }
-            }
-            let renderAvatar = () => {
-              if (i > 0) {
-                if (
-                  chat.isSent === true &&
-                  activeChat.msg[i - 1].isSent !== true
-                ) {
-                  return (
-                    <div className="chat-avatar">
-                      <div className="avatar m-0">
-                        <img
-                          src={userImg}
-                          alt="chat avatar"
-                          height="40"
-                          width="40"
-                        />
-                      </div>
-                    </div>
-                  )
-                } else if (chat.isSent !== true) {
-                  return (
-                    <div className="chat-avatar">
-                      <div className="avatar m-0">
-                        <img
-                          src={activeUser.photoURL}
-                          alt="chat avatar"
-                          height="40"
-                          width="40"
-                        />
-                      </div>
-                    </div>
-                  )
-                } else {
-                  return ""
-                }
-              } else {
+              } else if (chat.isSent !== true) {
                 return (
                   <div className="chat-avatar">
                     <div className="avatar m-0">
                       <img
-                        src={chat.isSent ? userImg : activeUser.photoURL}
+                        src={activeUser.photoURL}
                         alt="chat avatar"
                         height="40"
                         width="40"
@@ -133,32 +141,58 @@ class ChatLog extends React.Component {
                     </div>
                   </div>
                 )
+              } else {
+                return ""
               }
-            }
-            return (
-              <React.Fragment key={i}>
-                {renderSentTime()}
-                <div
-                  className={`chat ${
-                    chat.isSent !== true ? "chat-left" : "chat-right"
-                  }`}>
-                  {renderAvatar()}
-                  <div className="chat-body">
-                    <div className="chat-content">{chat.textContent}</div>
+            } else {
+              return (
+                <div className="chat-avatar">
+                  <div className="avatar m-0">
+                    {this.state.image ?
+                      <img
+                        src={chat.isSent ? `data:image/png;base64,${this.state.image}` : activeUser.photoURL}
+                        src={`data:image/png;base64,${this.state.image}`}
+                        className="round"
+                        height="40"
+                        width="40"
+                        alt="avatar"
+                      />
+                      :
+                      <img
+                        src={chat.isSent ? userImg : activeUser.photoURL}
+                        className="round"
+                        height="40"
+                        width="40"
+                        alt="avatar"
+                      />
+                    }
                   </div>
                 </div>
-              </React.Fragment>
-            )
-          })
+              )
+            }
+          }
+          return (
+            <React.Fragment key={i}>
+              {renderSentTime()}
+              <div
+                className={`chat ${chat.isSent !== true ? "chat-left" : "chat-right"
+                  }`}>
+                {renderAvatar()}
+                <div className="chat-body">
+                  <div className="chat-content">{chat.textContent}</div>
+                </div>
+              </div>
+            </React.Fragment>
+          )
+        })
         : null
 
     return (
       <div className="content-right">
         <div className="chat-app-window">
           <div
-            className={`start-chat-area ${
-              activeUser !== null ? "d-none" : "d-flex"
-            }`}>
+            className={`start-chat-area ${activeUser !== null ? "d-none" : "d-flex"
+              }`}>
             <span className="mb-1 start-chat-icon">
               <MessageSquare size={50} />
             </span>
@@ -175,9 +209,8 @@ class ChatLog extends React.Component {
             </h4>
           </div>
           <div
-            className={`active-chat ${
-              activeUser === null ? "d-none" : "d-block"
-            }`}>
+            className={`active-chat ${activeUser === null ? "d-none" : "d-block"
+              }`}>
             <div className="chat_navbar">
               <header className="chat_header d-flex justify-content-between align-items-center p-1">
                 <div className="d-flex align-items-center">
@@ -197,16 +230,15 @@ class ChatLog extends React.Component {
                     />
                     <span
                       className={`
-                    ${
-                      activeUser !== null &&
-                      activeUser.status === "do not disturb"
-                        ? "avatar-status-busy"
-                        : activeUser !== null && activeUser.status === "away"
-                        ? "avatar-status-away"
-                        : activeUser !== null && activeUser.status === "offline"
-                        ? "avatar-status-offline"
-                        : "avatar-status-online"
-                    }
+                    ${activeUser !== null &&
+                          activeUser.status === "do not disturb"
+                          ? "avatar-status-busy"
+                          : activeUser !== null && activeUser.status === "away"
+                            ? "avatar-status-away"
+                            : activeUser !== null && activeUser.status === "offline"
+                              ? "avatar-status-offline"
+                              : "avatar-status-online"
+                        }
                     `}
                     />
                   </div>

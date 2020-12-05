@@ -34,14 +34,14 @@ const UserDropdown = props => {
   const { logout, isAuthenticated } = useAuth0()
   return (
     <DropdownMenu right>
-      <DropdownItem
+      {/* <DropdownItem
         tag="a"
         href="#"
         onClick={e => handleNavigation(e, "/pages/account-settings")}
       >
         <Icon.User size={14} className="mr-50" />
         <span className="align-middle">Edit Profile</span>
-      </DropdownItem>
+      </DropdownItem> */}
       {/* <DropdownItem
         tag="a"
         href="#"
@@ -108,6 +108,7 @@ class NavbarUser extends React.PureComponent {
   state = {
     navbarSearch: false,
     langDropdown: false,
+    image: '',
     shoppingCart: [
       {
         id: 1,
@@ -176,6 +177,18 @@ class NavbarUser extends React.PureComponent {
   }
 
   componentDidMount() {
+    var user_images = []
+     user_images = JSON.parse(localStorage.getItem("Alumno-User-Images"))
+     var user  =  JSON.parse(localStorage.getItem("alumniuser"))
+    if(user){
+      if(user_images !== null && user_images.length !== 0){
+        for(let i=0;i<user_images.length;i++){
+          if(user_images[i].user_id === user.id){
+            this.setState({image : user_images[i].image_url})
+          }
+        }
+      }
+    }
     axios.get("/api/main-search/data").then(({ data }) => {
       this.setState({ suggestions: data.searchResult })
     })
@@ -671,13 +684,24 @@ class NavbarUser extends React.PureComponent {
               <span className="user-status">Available</span>
             </div>
             <span data-tour="user">
+            {this.state.image ? 
               <img
-                src={this.props.userImg}
-                className="round"
-                height="40"
-                width="40"
-                alt="avatar"
-              />
+              src={`data:image/png;base64,${this.state.image}`}
+              className="round"
+              height="40"
+              width="40"
+              alt="avatar"
+            />
+            :
+            <img
+            src={this.props.userImg}
+            className="round"
+            height="40"
+            width="40"
+            alt="avatar"
+          />
+             }
+
             </span>
           </DropdownToggle>
           <UserDropdown {...this.props} />

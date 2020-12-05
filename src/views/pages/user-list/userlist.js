@@ -33,15 +33,50 @@ class UserList extends React.Component {
         }
     }
 
+    formatDate(date) {
+        var d = new Date(date),
+          month = '' + (d.getMonth() + 1),
+          day = '' + d.getDate(),
+          year = d.getFullYear();
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+    
+        var date = [year];
+        return date
+      }
+
     componentDidMount = () => {
         axios
         .get("http://localhost:3000/users")
         .then(response => {
             if (response.data.status === 200 && response.data.data && response.data.data.length !== 0) {
                 var users = []
+                var user_images = JSON.parse(localStorage.getItem("Alumno-User-Images"))
                 for (let i = 0; i < response.data.data.length; i++) {
                     if (response.data.data[i].user_role !== "Admin") {
-                        users.push(response.data.data[i])
+                        let data = {
+                            id:response.data.data[i].id,
+                            email:response.data.data[i].email,
+                            phone:response.data.data[i].phone,
+                            password:response.data.data[i].password,
+                            fullname:response.data.data[i].fullname,
+                            reg_no:response.data.data[i].reg_no,
+                            academic_from:response.data.data[i].academic_from,
+                            academic_to:response.data.data[i].academic_to,
+                            company:response.data.data[i].company,
+                            designation:response.data.data[i].designation,
+                            address:response.data.data[i].address,
+                            approved:response.data.data[i].approved,
+                            image:null
+                        }
+                        if(user_images !== null && user_images.length !== 0){
+                            for(let j=0;j<user_images.length;j++){
+                                if(response.data.data[i].id === user_images[j].user_id){
+                                    data.image = user_images[j].image_url
+                                }
+                            }
+                        }
+                        users.push(data)
                     }
                 }
                 this.setState({ userlist: users })
@@ -58,9 +93,32 @@ class UserList extends React.Component {
             .then(response => {
                 if (response.data.status === 200 && response.data.data && response.data.data.length !== 0) {
                     var users = []
+                    var user_images = JSON.parse(localStorage.getItem("Alumno-User-Images"))
                     for (let i = 0; i < response.data.data.length; i++) {
                         if (response.data.data[i].user_role !== "Admin") {
-                            users.push(response.data.data[i])
+                            let data = {
+                                id:response.data.data[i].id,
+                                email:response.data.data[i].email,
+                                phone:response.data.data[i].phone,
+                                password:response.data.data[i].password,
+                                fullname:response.data.data[i].fullname,
+                                reg_no:response.data.data[i].reg_no,
+                                academic_from:response.data.data[i].academic_from,
+                                academic_to:response.data.data[i].academic_to,
+                                company:response.data.data[i].company,
+                                designation:response.data.data[i].designation,
+                                address:response.data.data[i].address,
+                                approved:response.data.data[i].approved,
+                                image:null
+                            }
+                            if(user_images !== null && user_images.length !== 0){
+                                for(let j=0;j<user_images.length;j++){
+                                    if(response.data.data[i].id === user_images[j].user_id){
+                                        data.image = user_images[j].image_url
+                                    }
+                                }
+                            }
+                            users.push(data)
                         }
                     }
                     this.setState({ userlist: users })
@@ -101,7 +159,11 @@ class UserList extends React.Component {
                                     <Card>
                                         <CardHeader className="mx-auto">
                                             <div className="avatar mr-1 avatar-xl">
+                                            {user.image ?
+                                                <img src={`data:image/png;base64,${user.image}`} alt="avatarImg" />
+                                                :
                                                 <img src={avatarImg} alt="avatarImg" />
+                                            }
                                             </div>
                                         </CardHeader>
                                         <CardBody className="text-center">
@@ -156,7 +218,7 @@ class UserList extends React.Component {
                                                             this.toggle("3")
                                                         }}
                                                     >
-                                                        Address
+                                                        More
                                                 </NavLink>
                                                 </NavItem>
                                             </Nav>
@@ -189,7 +251,7 @@ class UserList extends React.Component {
                                                                 <span className="text-bold-600 ml-50">Passout Year</span>
                                                             </div>
                                                             <div className="series-result">
-                                                                <span className="align-middle">{user.academic_to}</span>
+                                                                <span className="align-middle">{this.formatDate(user.academic_to)}</span>
                                                             </div>
                                                         </div>
                                                     }
@@ -200,7 +262,7 @@ class UserList extends React.Component {
                                                                 <span className="text-bold-600 ml-50">Academic Year</span>
                                                             </div>
                                                             <div className="series-result">
-                                                                <span className="align-middle">{user.academic_from}</span>
+                                                                <span className="align-middle">{this.formatDate(user.academic_from)}</span>
                                                             </div>
                                                         </div>
                                                     }
@@ -228,6 +290,17 @@ class UserList extends React.Component {
                                                      </div>
                                                  </div>                                                   
                                                 }
+                                                {user.company !== null &&
+                                                     <div className="chart-info d-flex justify-content-between mb-1">
+                                                     <div className="series-info d-flex align-items-center">
+                                                         <Award strokeWidth={5} size="12" className="primary" />
+                                                         <span className="text-bold-600 ml-50">Designation</span>
+                                                     </div>
+                                                     <div className="series-result">
+                                                    <span className="align-middle">{user.designation}</span>
+                                                     </div>
+                                                 </div>                                                   
+                                                }                                               
                                                 {user.address !== null &&
                                                     <div className="chart-info d-flex justify-content-between mb-1">
                                                     <div className="series-info d-flex align-items-center">

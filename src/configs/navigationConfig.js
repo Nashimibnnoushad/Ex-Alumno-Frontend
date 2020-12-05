@@ -18,6 +18,22 @@ const navigationConfig = [
     navLink: "/chat"
   },
   {
+    id: "search",
+    title: "Search",
+    type: "item",
+    icon: <Icon.Search size={20} />,
+    permissions: ["Alumni", "Admin", "Student"],
+    navLink: "/user-search"
+  },
+  {
+    id: "event",
+    title: "Event",
+    type: "item",
+    icon: <Icon.Bookmark size={20} />,
+    permissions: ["Alumni", "Admin", "Student"],
+    navLink: "/event"
+  },
+  {
     id: "accountSettings",
     title: "Account Settings",
     type: "item",

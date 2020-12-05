@@ -15,6 +15,13 @@ import Chat from "./views/apps/chat/Chat"
 const Userlist = lazy(() =>
   import("./views/pages/user-list/userlist")
 )
+const UserSearch = lazy(() =>
+  import("./views/pages/User-Search/user-search")
+)
+
+const Event = lazy(() =>
+  import("./views/pages/event/event")
+)
 
 // Route-based code splitting
 
@@ -242,6 +249,10 @@ class AppRouter extends React.Component {
             component={(props) => (!localStorage.alumnitoken ? (<Redirect to="/" />) : (<AccountSettings {...props} />))} 
           />
       <AppRoute path="/userlist" component={(props) => (!localStorage.alumnitoken ? (<Redirect to="/" />) : (<Userlist {...props} />))}  />
+      <AppRoute path="/user-search" component={(props) => (!localStorage.alumnitoken ? (<Redirect to="/" />) : (<UserSearch {...props} />))}  />
+      <AppRoute path="/event" component={(props) => (!localStorage.alumnitoken ? (<Redirect to="/" />) : (<Event {...props} />))}  />
+
+
       
 
       {/* ..... */}

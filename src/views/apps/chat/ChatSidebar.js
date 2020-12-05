@@ -9,7 +9,7 @@ import {
   searchContacts,
   markSeenAllMessages
 } from "../../../redux/actions/chat/index"
-import userImg from "../../../assets/img/portrait/small/avatar-s-11.jpg"
+import userImg from "../../../assets/img/portrait/small/account.png"
 
 class ChatSidebar extends React.Component {
   static getDerivedStateFromProps(props, state) {
@@ -34,7 +34,8 @@ class ChatSidebar extends React.Component {
     contacts: [],
     messages: [],
     status: null,
-    value: ""
+    value: "",
+    image: ''
   }
 
   getChatContents = () => {
@@ -43,6 +44,7 @@ class ChatSidebar extends React.Component {
   }
 
   async componentDidMount() {
+
     await this.getChatContents()
     this.setState({
       chatsContacts: this.props.chat.chatContacts,
@@ -50,6 +52,18 @@ class ChatSidebar extends React.Component {
       chats: this.props.chat.chats,
       status: this.props.chat.status
     })
+    var user_images = []
+    user_images = JSON.parse(localStorage.getItem("Alumno-User-Images"))
+    var user  =  JSON.parse(localStorage.getItem("alumniuser"))
+   if(user){
+     if(user_images !== null && user_images.length !== 0){
+       for(let i=0;i<user_images.length;i++){
+         if(user_images[i].user_id === user.id){
+           this.setState({image : user_images[i].image_url})
+         }
+       }
+     }
+   }
   }
 
   handleOnChange = e => {
@@ -186,7 +200,23 @@ class ChatSidebar extends React.Component {
                 className="avatar"
                 onClick={() => this.props.handleUserSidebar("open")}
               >
-                <img src={userImg} alt="User Profile" height="40" width="40" />
+            {this.state.image ? 
+              <img
+              src={`data:image/png;base64,${this.state.image}`}
+              className="round"
+              height="40"
+              width="40"
+              alt="avatar"
+            />
+            :
+            <img
+            src={userImg}
+            className="round"
+            height="40"
+            width="40"
+            alt="avatar"
+          />
+             }
                 <span
                   className={
                     status === "dnd"

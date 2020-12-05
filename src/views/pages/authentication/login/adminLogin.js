@@ -122,7 +122,7 @@ class AdminLogin extends React.Component {
                 onChange={this.handleRemember}
               />
               <div className="float-right">
-                <Link to="/forgot-password">Forgot Password?</Link>
+                <Link to="/pages/forgot-password">Forgot Password?</Link>
               </div>
             </FormGroup>
             <div className="d-flex justify-content-between">
