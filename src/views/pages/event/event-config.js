@@ -54,7 +54,7 @@ class EventConfig extends Component {
     user_role: null,
     toggleDeleteModal: false,
     deleteid: null,
-    deleteindex:null
+    deleteindex: null
 
   }
 
@@ -110,12 +110,12 @@ class EventConfig extends Component {
     if (addNew === false) this.setState({ currentData: data, addNew: false })
   }
 
-  deleteEvent = (id,index) => {
-    this.setState({ toggleDeleteModal: true, deleteid: id, deleteindex:index })
+  deleteEvent = (id, index) => {
+    this.setState({ toggleDeleteModal: true, deleteid: id, deleteindex: index })
   }
 
   closeDeleteModal = () => {
-    this.setState({ toggleDeleteModal: false, deleteid: null, deleteindex:null })
+    this.setState({ toggleDeleteModal: false, deleteid: null, deleteindex: null })
   }
 
   Reload = () => {
@@ -247,8 +247,8 @@ class EventConfig extends Component {
                 <Col lg="4" md="6" sm="12" key={index}>
                   <Card>
                     <CardBody>
-                      {event.image ? 
-                          <CardImg
+                      {event.image ?
+                        <CardImg
                           className="img-fluid mb-1"
                           src={`data:image/png;base64,${event.image}`}
                           alt="card image cap"
@@ -259,14 +259,14 @@ class EventConfig extends Component {
                         />
                         :
                         <CardImg
-                        className="img-fluid mb-1"
-                        src={eventimage}
-                        alt="card image cap"
-                        style={{
-                          width: "300px",
-                          height: "300px"
-                        }}
-                      />                      
+                          className="img-fluid mb-1"
+                          src={eventimage}
+                          alt="card image cap"
+                          style={{
+                            width: "300px",
+                            height: "300px"
+                          }}
+                        />
                       }
 
                       <h5>{event.name}</h5>
@@ -283,15 +283,16 @@ class EventConfig extends Component {
                       </div>
                       {user_role === 'Admin' &&
                         <div className="data-list-sidebar-footer px-2 d-flex justify-content-start align-items-center mt-0">
-
-                          <Button color="primary" onClick={() => this.editEvent(true, false, event)}>
-                            Edit
-                        </Button>
+                          {this.formatDate(event.date) >= this.formatDate(new Date()) &&
+                            <Button color="primary" onClick={() => this.editEvent(true, false, event)}>
+                              Edit
+                            </Button>
+                          }
                           <Button
                             className="ml-1"
                             color="danger"
                             outline
-                          onClick={() => this.deleteEvent(event.id,index)}
+                            onClick={() => this.deleteEvent(event.id, index)}
                           >
                             Delete
                         </Button>

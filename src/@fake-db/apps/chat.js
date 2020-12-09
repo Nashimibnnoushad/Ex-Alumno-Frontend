@@ -5,11 +5,11 @@ let data = {
   contacts: [
     {
       uid: 1,
-      displayName: "Peter",
+      displayName: "Admin",
       about:
         "Chat Only",
-      photoURL: require("../../assets/img/portrait/small/avatar-s-1.jpg"),
-      status: "offline"
+      photoURL: require("../../assets/img/portrait/small/account.png"),
+      status: "online"
     },
     {
       uid: 2,
@@ -89,16 +89,16 @@ let data = {
       isPinned: true,
       msg: [
         {
-          textContent: "Hi, Good Morning",
+          textContent: "Hi, Welcome to EX-Alumno",
           time: "Mon Aug 21 2020 07:45:00 GMT+0000 (GMT)",
-          isSent: true,
+          isSent: false,
           isSeen: true
         },
         {
           textContent:
-            "Good Morning",
+            "Thank You Sir",
           time: "Mon Aug 21 2020 07:45:23 GMT+0000 (GMT)",
-          isSent: false,
+          isSent: true,
           isSeen: true
         },
         {
@@ -115,37 +115,37 @@ let data = {
         },
         {
           textContent:
-            "How was your studies?",
+            "You can explore with your friends here",
           time: "Mon Aug 21 2020 07:46:05 GMT+0000 (GMT)",
-          isSent: true,
-          isSeen: true
-        },
-        {
-          textContent: "Going well.. and what about your job?",
-          time: "Mon Aug 21 2020 07:46:23 GMT+0000 (GMT)",
           isSent: false,
           isSeen: true
         },
         {
-          textContent: "Yeah, its good, currently i am working as a software developer",
+          textContent: "Yeah Sure, Its a gret opportunity for us.",
+          time: "Mon Aug 21 2020 07:46:23 GMT+0000 (GMT)",
+          isSent: true,
+          isSeen: true
+        },
+        {
+          textContent: "What about the next alumni?",
           time: "Mon Aug 21 2020 07:46:33 GMT+0000 (GMT)",
           isSent: true,
           isSeen: true
         },
         {
-          textContent: "Great... Did you attend our last alumni?",
+          textContent: "You can see the details about the event on Event menu",
           time: "Mon Aug 21 2020 07:46:43 GMT+0000 (GMT)",
           isSent: false,
           isSeen: true
         },
         {
-          textContent: "No.. I missed it, definitly come next 👍",
+          textContent: "Ok, Fine. Thank You Sir 👍",
           time: "Mon Aug 21 2020 07:46:53 GMT+0000 (GMT)",
           isSent: true,
           isSeen: true
         },
         {
-          textContent: "Great, See you soon 👍.",
+          textContent: "You are Welcome 👍.",
           time: "Mon Aug 21 2020 07:47:00 GMT+0000 (GMT)",
           isSent: false,
           isSeen: false

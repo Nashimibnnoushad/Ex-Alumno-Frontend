@@ -266,6 +266,7 @@ class EventSidebar extends Component {
                 className="form-control"
                 // views={["year"]}
                 id="date-picker-dialog"
+                disablePast="true"
                 format="dd/MM/yyyy"
                 value={date}
                 style={{marginTop: '0px', paddingTop:'6px', borderBottom: '0px'}}

@@ -1,6 +1,8 @@
 import React from "react"
 import { X } from "react-feather"
 import PerfectScrollbar from "react-perfect-scrollbar"
+import userImg from "../../../assets/img/portrait/small/account.png"
+
 class ReceiverProfile extends React.Component {
   static getDerivedStateFromProps(props, state) {
     if (props.activeUser !== state.activeUser) {
@@ -32,12 +34,22 @@ class ReceiverProfile extends React.Component {
           </span>
           <div className="header-profile-sidebar">
             <div className="avatar">
-              <img
-                src={activeUser !== null ? activeUser.photoURL : null}
-                alt={activeUser !== null ? activeUser.displayName : null}
-                height="66"
-                width="66"
-              />
+            {activeUser && activeUser.uid === 1 &&
+                      <img
+                        src={activeUser && activeUser.photoURL !== null ? activeUser.photoURL : userImg}
+                        alt={activeUser !== null ? activeUser.displayName : ""}
+                        height="66"
+                        width="66"
+                      />
+                    }
+                    {activeUser && activeUser.uid !== 1 && 
+                    <img
+                    src={activeUser && activeUser.photoURL !== null ? `data:image/png;base64,${activeUser.photoURL}` : userImg}
+                    alt={activeUser !== null ? activeUser.displayName : ""}
+                    height="66"
+                    width="66"
+                  />                    
+                    }
               <span
                 className={`${
                   activeUser !== null && activeUser.status === "do not disturb"

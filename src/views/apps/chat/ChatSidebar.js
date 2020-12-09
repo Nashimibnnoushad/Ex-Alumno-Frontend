@@ -10,20 +10,32 @@ import {
   markSeenAllMessages
 } from "../../../redux/actions/chat/index"
 import userImg from "../../../assets/img/portrait/small/account.png"
+import axios from "axios"
 
 class ChatSidebar extends React.Component {
   static getDerivedStateFromProps(props, state) {
+    var user = JSON.parse(localStorage.getItem("alumniuser"))
     if (
       props.chat.chatContacts.length !== state.chatContacts ||
       props.chat.contacts.length !== state.contacts ||
       props.chat.chats.length !== state.chats ||
       props.chat.status !== state.status
     ) {
-      return {
-        chatsContacts: props.chat.chatContacts,
-        contacts: props.chat.contacts,
-        chats: props.chat.chats,
-        status: props.chat.status
+      if(user.user_role === "Admin"){
+        return {
+          chatsContacts: [],
+          // contacts: props.chat.contacts,
+          chats: [],
+          status: props.chat.status
+        }
+      }
+      else {
+        return {
+          chatsContacts: props.chat.chatContacts,
+          // contacts: props.chat.contacts,
+          chats: props.chat.chats,
+          status: props.chat.status
+        }
       }
     }
     // Return null if the state hasn't changed
@@ -44,14 +56,16 @@ class ChatSidebar extends React.Component {
   }
 
   async componentDidMount() {
-
+    await this.GetContact()
     await this.getChatContents()
+
     this.setState({
-      chatsContacts: this.props.chat.chatContacts,
-      contacts: this.props.chat.contacts,
-      chats: this.props.chat.chats,
+      // chatsContacts: this.props.chat.chatContacts,
+      // contacts: this.props.chat.contacts,
+      // chats: this.props.chat.chats,
       status: this.props.chat.status
     })
+    
     var user_images = []
     user_images = JSON.parse(localStorage.getItem("Alumno-User-Images"))
     var user  =  JSON.parse(localStorage.getItem("alumniuser"))
@@ -64,6 +78,41 @@ class ChatSidebar extends React.Component {
        }
      }
    }
+  }
+
+  GetContact = () => {
+    axios
+    .get("http://localhost:3000/users")
+    .then(response => {
+        if (response.data.status === 200 && response.data.data && response.data.data.length !== 0) {
+            var users = []
+            var user_images = JSON.parse(localStorage.getItem("Alumno-User-Images"))
+            var user = JSON.parse(localStorage.getItem("alumniuser"))
+            for (let i = 0; i < response.data.data.length; i++) {
+                if (response.data.data[i].id !== user.id && response.data.data[i].approved === 1) {
+                    let data = {
+                        uid:response.data.data[i].id,
+                        displayName:response.data.data[i].fullname,
+                        about:"Chat Only",
+                        status: "Online",
+                        photoURL:null
+                    }
+                    if(user_images !== null && user_images.length !== 0){
+                        for(let j=0;j<user_images.length;j++){
+                            if(response.data.data[i].id === user_images[j].user_id){
+                                data.photoURL = user_images[j].image_url
+                            }
+                        }
+                    }
+                    users.push(data)
+                }
+            }
+            this.setState({ contacts: users })
+        }
+    })
+    .catch(err =>
+        console.log(err),
+    )
   }
 
   handleOnChange = e => {
@@ -96,12 +145,21 @@ class ChatSidebar extends React.Component {
             >
               <div className="pr-1">
                 <span className="avatar avatar-md m-0">
+                {contact.photoURL ?
                   <img
-                    src={contact.photoURL}
+                    src={`data:image/png;base64,${contact.photoURL}`}
                     alt={contact.displayName}
                     height="38"
                     width="38"
                   />
+                  :
+                  <img
+                    src={userImg}
+                    alt={contact.displayName}
+                    height="38"
+                    width="38"
+                  />
+                }
                 </span>
               </div>
               <div className="user-chat-info">
@@ -150,7 +208,7 @@ class ChatSidebar extends React.Component {
                 <div className="pr-1">
                   <span className="avatar avatar-md m-0">
                     <img
-                      src={chat.photoURL}
+                      src={userImg}
                       alt={chat.displayName}
                       height="38"
                       width="38"
@@ -230,7 +288,7 @@ class ChatSidebar extends React.Component {
                 />
               </div>
             </div>
-            <FormGroup className="position-relative has-icon-left mx-1 my-0 w-100">
+            {/* <FormGroup className="position-relative has-icon-left mx-1 my-0 w-100">
               <Input
                 className="round"
                 type="text"
@@ -241,7 +299,7 @@ class ChatSidebar extends React.Component {
               <div className="form-control-position">
                 <Search size={15} />
               </div>
-            </FormGroup>
+            </FormGroup> */}
           </div>
         </div>
         <PerfectScrollbar

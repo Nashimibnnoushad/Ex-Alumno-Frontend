@@ -41,7 +41,7 @@ class ChatLog extends React.Component {
     user_images = JSON.parse(localStorage.getItem("Alumno-User-Images"))
     var user = JSON.parse(localStorage.getItem("alumniuser"))
     if (user) {
-      if ( user_images !== null && user_images.length !== 0) {
+      if (user_images !== null && user_images.length !== 0) {
         for (let i = 0; i < user_images.length; i++) {
           if (user_images[i].user_id === user.id) {
             this.setState({ image: user_images[i].image_url })
@@ -132,12 +132,22 @@ class ChatLog extends React.Component {
                 return (
                   <div className="chat-avatar">
                     <div className="avatar m-0">
+                    {activeUser && activeUser.uid === 1 &&
                       <img
-                        src={activeUser.photoURL}
-                        alt="chat avatar"
+                        src={activeUser && activeUser.photoURL !== null ? activeUser.photoURL : userImg}
+                        alt={activeUser !== null ? activeUser.displayName : ""}
                         height="40"
                         width="40"
                       />
+                    }
+                    {activeUser && activeUser.uid !== 1 && 
+                    <img
+                    src={activeUser && activeUser.photoURL !== null ? `data:image/png;base64,${activeUser.photoURL}` : userImg}
+                    alt={activeUser !== null ? activeUser.displayName : ""}
+                    height="40"
+                    width="40"
+                  />                    
+                    }
                     </div>
                   </div>
                 )
@@ -150,8 +160,8 @@ class ChatLog extends React.Component {
                   <div className="avatar m-0">
                     {this.state.image ?
                       <img
-                        src={chat.isSent ? `data:image/png;base64,${this.state.image}` : activeUser.photoURL}
-                        src={`data:image/png;base64,${this.state.image}`}
+                        src={chat.isSent ? `data:image/png;base64,${this.state.image}` : userImg}
+                        // src={`data:image/png;base64,${this.state.image}`}
                         className="round"
                         height="40"
                         width="40"
@@ -159,7 +169,7 @@ class ChatLog extends React.Component {
                       />
                       :
                       <img
-                        src={chat.isSent ? userImg : activeUser.photoURL}
+                        src={userImg}
                         className="round"
                         height="40"
                         width="40"
@@ -222,12 +232,23 @@ class ChatLog extends React.Component {
                   <div
                     className="avatar user-profile-toggle m-0 m-0 mr-1"
                     onClick={() => this.props.handleReceiverSidebar("open")}>
+                    {activeUser && activeUser.uid === 1 &&
+                      <img
+                        src={activeUser && activeUser.photoURL !== null ? activeUser.photoURL : userImg}
+                        alt={activeUser !== null ? activeUser.displayName : ""}
+                        height="40"
+                        width="40"
+                      />
+                    }
+                    {activeUser && activeUser.uid !== 1 && 
                     <img
-                      src={activeUser !== null ? activeUser.photoURL : ""}
-                      alt={activeUser !== null ? activeUser.displayName : ""}
-                      height="40"
-                      width="40"
-                    />
+                    src={activeUser && activeUser.photoURL !== null ? `data:image/png;base64,${activeUser.photoURL}` : userImg}
+                    alt={activeUser !== null ? activeUser.displayName : ""}
+                    height="40"
+                    width="40"
+                  />                    
+                    }
+
                     <span
                       className={`
                     ${activeUser !== null &&
