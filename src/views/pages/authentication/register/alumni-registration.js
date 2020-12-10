@@ -54,8 +54,10 @@ componentDidMount() {
     userlist: [],
     isValid: null,
     emailValid: null,
+    phonevalid: null,
     passwordValidationMessage: "",
     emailValidationMessage: "",
+    phonevalidationMessage: "",
     canSubmit: false,
   }
 
@@ -130,6 +132,24 @@ componentDidMount() {
     }
   }
 
+  handlePhone = (e) => {
+    this.setState({ phone: e.target.value })
+    var decimal = /^(?!.*\s).{10,12}$/;
+    if (e.target.value.match(decimal)) {
+      this.setState({ phonevalidationMessage: "", canSubmit: true, phonevalid: true })
+      return true;
+    }
+    else {
+      if (e.target.value === "") {
+        this.setState({ phonevalidationMessage: "", canSubmit: false, phonevalid: false })
+      }
+      else {
+        this.setState({ canSubmit: false, phonevalidationMessage: "Invalid Phone Number", phonevalid: false })
+      }
+      return false;
+    }
+  }
+
   handleEmail = (e) => {
     this.setState({ email: e.target.value })
     var decimal = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -181,9 +201,13 @@ componentDidMount() {
             type="number"
             placeholder="Phone"
             required
-            value={this.state.phone}
-            onChange={e => this.setState({ phone: e.target.value })}
+            onChange={this.handlePhone}
+            onClick={this.handlePhone}
+            onKeyDown={this.handlePhone}
+            valid={this.state.phonevalid === true}
+            invalid={this.state.phonevalid === false}
           />
+          {this.state.phonevalidationMessage && <span className="invalid-tooltip"> {this.state.phonevalidationMessage}</span>}
           <Label>Phone<span style={{ color: "red" }}>*</span></Label>
         </FormGroup>
         <FormGroup className="form-label-group">
