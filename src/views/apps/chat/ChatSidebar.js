@@ -93,7 +93,7 @@ class ChatSidebar extends React.Component {
                     let data = {
                         uid:response.data.data[i].id,
                         displayName:response.data.data[i].fullname,
-                        about:"Chat Only",
+                        about:response.data.data[i].user_role,
                         status: "Online",
                         photoURL:null
                     }
